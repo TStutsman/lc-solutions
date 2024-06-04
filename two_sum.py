@@ -37,7 +37,7 @@ class Solution(object):
                 return [num1_idx, num2_idx] # [3, 5]
             
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
+    def twoSum(self, nums, target: int):
         # brute force O(n^2)
         # iterate over all integers i:
             # iterate over all integers after i (j):
