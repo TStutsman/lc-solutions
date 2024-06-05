@@ -1,5 +1,5 @@
 class Solution:
-    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+    def topKFrequent(self, nums, k: int):
         # hash for element_counts
         # hash for most_frequent
         # for each element
