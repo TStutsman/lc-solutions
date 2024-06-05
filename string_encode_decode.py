@@ -1,6 +1,6 @@
 class Solution:
 
-    def encode(self, strs: List[str]) -> str:
+    def encode(self, strs: list[str]) -> str:
         # for each string in strs
             # save the length of the string in lengths array
             # append string to encoded_str
@@ -14,7 +14,7 @@ class Solution:
 
         return result
 
-    def decode(self, s: str) -> List[str]:
+    def decode(self, s: str) -> list[str]:
         if s == ":": return []
 
         [lengths_str, encoded_str] = s.split(':', 1)
