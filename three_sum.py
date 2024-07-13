@@ -9,7 +9,7 @@ class Solution:
             # decrement right
                 # repeat above
 
-        left, right = 0, len(nums) - 1
+        left = 0
         triplets = {}
 
         def checkZero(left, right):
@@ -19,13 +19,13 @@ class Solution:
                     t_sort = sorted([nums[left], nums[i], nums[right]])
                     t_str = ','.join([str(n) for n in t_sort])
                     triplets[t_str] = [nums[left], target, nums[right]]
-                    print(triplets)
+
         
-        while left < right - 1:
-            checkZero(left, right)
-            checkZero(left+1, right)
-            checkZero(left, right - 1)
+        while left < len(nums) - 2:
+            right = left + 2
+            while right < len(nums):
+                checkZero(left, right)
+                right += 1
             left += 1
-            right -= 1
         
         return list(triplets.values())
