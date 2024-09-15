@@ -29,6 +29,7 @@
 #         return k
 
 import math
+
 class Solution:
     def minEatingSpeed(self, piles: list[int], h: int) -> int:
         # if h is length of piles then k is max of piles
