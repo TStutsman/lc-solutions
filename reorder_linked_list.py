@@ -44,3 +44,27 @@
 #                 print(odd.val, even.val if even else None)
 
 #             curr = curr.next
+
+class Solution:
+    def reorderList(self, head: Optional[ListNode]) -> None:
+        curr = head
+        nodes = []
+
+        while curr:
+            nodes.append(curr)
+            curr = curr.next
+        
+        l,r = 0, len(nodes) - 1
+        while l < r - 1:
+            print(nodes[l].val, nodes[r].val)
+            temp = nodes[l].next
+            nodes[l].next = nodes[r]
+            nodes[r].next = temp
+            l += 1
+            r -= 1
+        
+        if l == r - 1:
+            nodes[l].next = nodes[r]
+            nodes[r].next = None
+        else:
+            nodes[r].next = None
