@@ -1,6 +1,6 @@
 class Solution:
-    def exist(self, board: List[List[str]], word: str) -> bool:
-        def get_neighbors(x, y) -> List[tuple[int, int]]:
+    def exist(self, board: list[list[str]], word: str) -> bool:
+        def get_neighbors(x, y) -> list[tuple[int, int]]:
             res = []
 
             if x > 0:
@@ -37,7 +37,7 @@ class Solution:
             return False
         
         for row in range(len(board)):
-            for col in range(len(board)):
+            for col in range(len(board[row])):
                 if dfs((row, col), set()):
                     return True
         
