@@ -1,6 +1,7 @@
 class Solution:
     def exist(self, board: list[list[str]], word: str) -> bool:
-        def get_neighbors(x, y) -> list[tuple[int, int]]:
+        # Neighbor helper function
+	def get_neighbors(x, y) -> list[tuple[int, int]]:
             res = []
 
             if x > 0:
@@ -17,6 +18,7 @@ class Solution:
             
             return res
         
+	# recursive dfs to find next letter of word
         def dfs(root: tuple[int, int], visited: set[tuple[int, int]]) -> bool:
             x, y = root
             if board[x][y] == word[len(visited)]:
@@ -36,6 +38,7 @@ class Solution:
             
             return False
         
+	# iterate through all letters in board
         for row in range(len(board)):
             for col in range(len(board[row])):
                 if dfs((row, col), set()):
