@@ -10,28 +10,24 @@ class Solution:
 
             # check if substring is palindrome
                 # if pali, add to partitions list -> shift left to right
-                    # partitions.append(s[left:right + 1])
-                    # dfs(right + 1, right + 1) recur
+                    # partitions.append(s[left:right])
+                    # dfs(right, right + 1) recur to next character after pali
                     # partitions.pop()
-            # always continue to next letter
+
             # dfs(left, right + 1) recur
-            # remove first letter and add to partitioned list
-            # partitions.append(s[left])
-            # dfs(left + 1, right) recur
 
         def dfs(l: int, r: int) -> None:
-            if r > len(s) or l >= r:
+            if l >= len(s):
+                res.append(partitions.copy())
+                return
+            if r > len(s):
                 return
             
-            print(partitions, s[l:r])
             if is_pali(s[l:r]):
                 partitions.append(s[l:r])
-                if r >= len(s):
-                    res.append(partitions.copy())
                 dfs(r, r + 1)
                 partitions.pop()
 
-            dfs(l + 1, r)
             dfs(l, r + 1)
 
         def is_pali(s: str) -> bool:
