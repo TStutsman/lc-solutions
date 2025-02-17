@@ -1,19 +1,18 @@
 class TreeNode:
-    def __init__(self, val):
-        self.val = val
+    def __init__(self):
         self.next = {}
 
 class PrefixTree:
     # O(n) space
     def __init__(self):
-        self.root = TreeNode(None)
+        self.root = TreeNode()
 
     # O(n) insert
     def insert(self, word: str) -> None:
         curr = self.root
         for letter in word:
             if letter not in curr.next:
-                curr.next[letter] = TreeNode(letter)
+                curr.next[letter] = TreeNode()
             
             curr = curr.next[letter]
 
