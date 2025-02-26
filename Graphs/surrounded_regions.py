@@ -1,7 +1,8 @@
 from collections import deque
+from typing import List
 
 class Solution:
-    def solve(self, board: list[list[str]]) -> None:
+    def solve(self, board: List[List[str]]) -> None:
         # O(n + m) n = cols, m = rows
         # iterate over edges
             # bft from 'o' on the edges (not surrounded)
