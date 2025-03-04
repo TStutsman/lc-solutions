@@ -13,19 +13,17 @@ class Solution:
             adj[b].append(a)
 
         visit = set()
-        def dfs(prev: int, node: int) -> None:
-            if node in visit:
-                return
-            visit.add(node)
-
+        def dfs(node: int) -> None:
             for nxt in adj[node]:
-                if nxt != prev:
-                    dfs(node, nxt)
+                if nxt not in visit:
+                    visit.add(nxt)
+                    dfs(nxt)
 
         count = 0
         for node in range(n):
             if node not in visit:
+                visit.add(node)
                 count += 1
-                dfs(-1, node)
+                dfs(node)
             
         return count
