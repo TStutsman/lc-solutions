@@ -40,13 +40,14 @@ class Solution:
         def dfs(node: Node, depth: int) -> None:
             if node.word == endWord:
                 nonlocal res
-                res = depth
+                res = min(res, depth) if res else depth
                 return
             
             for nei in node.next:
                 if nei not in visit:
                     visit.add(nei)
                     dfs(nei, depth + 1)
+                    visit.discard(nei)
 
         dfs(nodes[beginWord], 1)
 
