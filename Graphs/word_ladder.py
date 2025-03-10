@@ -1,54 +1,40 @@
+from collections import deque
 from typing import List
-
-class Node:
-    def __init__(self, word:str):
-        self.word = word
-        self.next = []
-    
-    def __repr__(self):
-        return '<Node word:' + self.word + '>'
 
 class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
-        # check if one letter diff (n^2 * m)
-        def one_off(a: str, b: str) -> bool:
-            off = 0
-            for i in range(len(a)):
-                if a[i] != b[i]:
-                    if off > 0:
-                        return False
-                    off += 1
-            return True
+        # bfs tree of possibilities
 
-        wordList.append(beginWord)
+        # possible letters for each idx
+        poss = []
+        for idx in range(len(beginWord)):
+            poss.append(set())
+            for word in wordList:
+                poss[idx].add(word[idx])
+
+        q = deque([beginWord])
+        words = set(wordList)
+        depth = 1
+
+        def addNeighbors(word: str) -> None:
+            for i in range(len(word)):
+                for char in list(poss[i]):
+                    if char == word[i]:
+                        continue
+                    
+                    newWord = word[:i] + char + word[i+1:]
+                    if newWord in words:
+                        words.discard(newWord)
+                        q.append(newWord)
+
+        while q:
+            for _ in range(len(q)):
+                curr = q.popleft()
+
+                if curr == endWord:
+                    return depth
+
+                addNeighbors(curr)
+            depth += 1
         
-        nodes = {}
-        for i in range(len(wordList)):
-            word = wordList[i]
-            nodes[word] = n = Node(word)
-            for j in range(i):
-                m = nodes[wordList[j]]
-                if one_off(n.word, m.word):
-                    n.next.append(m)
-                    m.next.append(n)
-
-        wordList.pop()
-        
-        res = 0
-        visit = set()
-
-        def dfs(node: Node, depth: int) -> None:
-            if node.word == endWord:
-                nonlocal res
-                res = min(res, depth) if res else depth
-                return
-            
-            for nei in node.next:
-                if nei not in visit:
-                    visit.add(nei)
-                    dfs(nei, depth + 1)
-                    visit.discard(nei)
-
-        dfs(nodes[beginWord], 1)
-
-        return res
+        return 0
