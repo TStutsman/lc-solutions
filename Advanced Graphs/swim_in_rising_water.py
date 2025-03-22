@@ -16,6 +16,7 @@ class Solution:
         NSEW = [(0,1),(0,-1),(1,0),(-1,0)]
 
         heap = [(grid[0][0],0,0)]
+        # O(n^2) space
         visit = [[False] * COLS for _ in grid]
         visit[0][0] = True
         res = 0
