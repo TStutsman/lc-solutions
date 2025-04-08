@@ -1,7 +1,7 @@
 class Solution:
     def numDecodings(self, s: str) -> int:
         # Subproblem: suffix of s[i]
-        # Relation: S(i) = S(i+1) OR S(i+1) + 1
+        # Relation: S(i) = S(i+1) + S(i+2) if 11-19,21-26 else S(i+1)
         # Topo Ord: n, n-1, ... 0
         # Base: S(n) = 0
         # Original: S(0)
@@ -10,14 +10,22 @@ class Solution:
         if s[0] == '0':
             return 0
 
-        # [1,0,1,2] = if i + 2 >= 4
+        opn, cls = 1, 0
+        for i in range(len(s)-1, -1, -1):
+            if i < len(s) - 1 and s[i+1] == '0':
+                if not '0' < s[i] < '3':
+                    return 0
+                continue
+            if i < len(s) - 2 and s[i+2] == '0':
+                continue
 
-        count = 0 if s[-1] == '0' else 1
-        for i in range(len(s)-2, -1, -1):
-            if s[i] == '0':
-                count -= 1
-            if i + 2 >= len(s) or s[i+2] != '0':
-                if s[i] == '1' or 20 <= int(s[i:i+2]) <= 26:
-                    count += 1
+            sub = s[i:i+2]
+            if '10' < sub <= '19' or '20' < sub <= '26':
+                tmp = opn
+                opn = opn + cls
+                cls = tmp
+            else:
+                opn = opn + cls
+                cls = 0
         
-        return count
+        return opn + cls
